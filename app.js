@@ -70,7 +70,8 @@
 
   // ---------- Загрузка: счётчик по реально загруженным картинкам ----------
   const loader = $('#loader'), num = $('#loadNum');
-  const imgs = $$('img').filter(i => !i.loading || i.loading !== 'lazy');
+  // Ждём только то, что видно сразу (первый экран), — остальное догрузится по ходу прокрутки.
+  const imgs = $$('.hero img, .nav img');
   let loaded = 0, shown = 0;
   imgs.forEach(i => { if (i.complete) loaded++; else i.addEventListener('load', () => loaded++, { once: true }), i.addEventListener('error', () => loaded++, { once: true }); });
   const t0 = performance.now();
@@ -80,7 +81,7 @@
     shown += (target - shown) * 0.18 + 0.4;
     shown = Math.min(shown, target);
     num.textContent = Math.round(shown);
-    if (shown >= 99.5 || performance.now() - t0 > 6000) {
+    if (shown >= 99.5 || performance.now() - t0 > 3000) {
       num.textContent = 100;
       setTimeout(() => { loader.classList.add('done'); start(); }, 250);
     } else requestAnimationFrame(tick);
