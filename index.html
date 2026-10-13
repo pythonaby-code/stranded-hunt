@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stranded Hunt — скачать игру</title>
+<meta name="description" content="Stranded Hunt — кооперативная игра про охотника на островах: охота, рыбалка, костёр, боссы и дорога домой. Бесплатно для Windows.">
+<meta property="og:title" content="Stranded Hunt">
+<meta property="og:description" content="Охота, острова и дорога домой. Играй с друзьями до 4 человек.">
+<meta property="og:image" content="assets/shots/rusty.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Загрузка: значок и счётчик -->
+<div class="loader" id="loader">
+  <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg>
+  <div class="loader-num"><span id="loadNum">0</span>%</div>
+</div>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="mark" viewBox="0 0 48 48">
+    <rect x="3" y="3" width="42" height="42" rx="12" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M14 33 C14 20 22 13 34 13 C34 25 27 33 14 33 Z" fill="currentColor"/>
+    <path d="M12 36 L28 20" stroke="#08110c" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M28 20 l-1 5 m1 -5 l-5 1" stroke="#08110c" stroke-width="2.2" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <nav class="nav-left mono">
+    <a href="#islands"><span class="dot"></span><span data-en="Islands">Острова</span></a>
+    <a href="#features" data-en="Game">Игра</a>
+    <a href="#bosses" data-en="Bosses">Боссы</a>
+  </nav>
+  <a class="nav-logo" href="#top" aria-label="Stranded Hunt"><svg viewBox="0 0 48 48"><use href="#mark"/></svg></a>
+  <div class="nav-right">
+    <button class="pill mono lang" id="langBtn" type="button">EN</button>
+    <a class="pill mono pill-dl" href="#download"><span class="led"></span><span data-en="Download">Скачать</span> <b>1.0</b></a>
+    <img class="avatar" src="assets/cards/hunter.webp" alt="">
+  </div>
+</header>
+
+<main>
+<!-- ============ Главный экран ============ -->
+<section class="hero" id="top">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <canvas class="fireflies" id="fireflies" aria-hidden="true"></canvas>
+
+  <div class="floaters" aria-hidden="true">
+    <img src="assets/items/bow.webp" class="fl" style="--x:7%;--y:30%;--r:-18deg" data-depth="0.6">
+    <img src="assets/items/rawfish.webp" class="fl" style="--x:86%;--y:24%;--r:14deg" data-depth="0.9">
+    <img src="assets/items/campfire.webp" class="fl" style="--x:12%;--y:62%;--r:6deg" data-depth="0.35">
+    <img src="assets/items/rifle.webp" class="fl big" style="--x:80%;--y:58%;--r:-22deg" data-depth="0.5">
+    <img src="assets/items/berries.webp" class="fl small" style="--x:28%;--y:16%;--r:0deg" data-depth="1.2">
+    <img src="assets/items/fishingrod.webp" class="fl" style="--x:68%;--y:12%;--r:30deg" data-depth="0.8">
+  </div>
+
+  <div class="hero-text">
+    <p class="kicker mono reveal"><span class="led"></span><span data-en="Co-op survival · up to 4 players">Кооп-выживание · до 4 игроков</span></p>
+    <h1 class="title reveal" style="--d:.1s"><span>STRANDED HUNT.</span><span class="title-2" data-en="HUNT. ISLANDS. HOME.">ОХОТА. ОСТРОВА. ДОМ.</span></h1>
+    <p class="typed mono reveal" style="--d:.2s"><span id="typed"></span><i class="caret"></i></p>
+    <div class="hero-cta reveal" style="--d:.3s">
+      <a class="btn glow" href="#download"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Download for Windows">Скачать для Windows</span></a>
+      <span class="mono meta">v1.0 · 49 MB · <span data-en="free">бесплатно</span></span>
+    </div>
+  </div>
+
+  <div class="fan" id="fan" aria-label="Звери острова"></div>
+</section>
+
+<!-- ============ Острова: большая панель-слайдер ============ -->
+<section class="islands" id="islands">
+  <div class="section-head reveal">
+    <span class="mono kicker"><span class="led"></span>01 — <span data-en="World">Мир</span></span>
+    <h2 class="h2" data-en="THREE ISLANDS BETWEEN YOU AND HOME">ТРИ ОСТРОВА МЕЖДУ ТОБОЙ И ДОМОМ</h2>
+  </div>
+  <div class="stage" id="stage">
+    <div class="panel" id="panel">
+      <div class="panel-bg" id="panelBg"></div>
+      <div class="panel-shade"></div>
+      <div class="panel-info">
+        <div class="tags mono" id="slTags"></div>
+        <p class="mono planet" id="slKicker"></p>
+        <h3 class="panel-title" id="slTitle"></h3>
+        <p class="panel-desc" id="slDesc"></p>
+        <p class="boss-line mono" id="slBoss"></p>
+      </div>
+      <div class="thumbs" id="thumbs"></div>
+      <div class="arrows">
+        <button class="arrow" id="prev" type="button" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+        <button class="arrow" id="next" type="button" aria-label="Вперёд"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="counter mono" id="slNum">01</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Что в игре ============ -->
+<section class="features" id="features">
+  <div class="section-head reveal">
+    <span class="mono kicker"><span class="led"></span>02 — <span data-en="Game">Игра</span></span>
+    <h2 class="h2" data-en="EVERYTHING BY HAND">ВСЁ СВОИМИ РУКАМИ</h2>
+  </div>
+  <div class="fgrid">
+    <article class="fcard reveal glowable" style="--d:0s"><img src="assets/items/bow.webp" alt=""><h3 data-en="Hunting">Охота</h3><p data-en="Spear, slingshot, bow, crossbow and an old rifle. Boars, deer, bears and tigers.">Копьё, рогатка, лук, арбалет и старое ружьё. Кабаны, олени, медведи и тигры.</p></article>
+    <article class="fcard reveal glowable" style="--d:.06s"><img src="assets/items/fishingrod.webp" alt=""><h3 data-en="Fishing">Рыбалка</h3><p data-en="Cast, wait for the «!» over the bobber and hook it — the fish flies out onto the shore.">Забрось, дождись «!» над поплавком и подсеки — рыба вылетит прямо на берег.</p></article>
+    <article class="fcard reveal glowable" style="--d:.12s"><img src="assets/items/campfire.webp" alt=""><h3 data-en="Campfire">Костёр</h3><p data-en="Warms you at night and cooks meat. Don't let it burn!">Греет ночью и жарит мясо. Не передержи — сгорит!</p></article>
+    <article class="fcard reveal glowable" style="--d:.18s"><img src="assets/items/crossbow.webp" alt=""><h3 data-en="Crafting">Крафт</h3><p data-en="Sticks, stones, vines — and rare scrap from the car and hides from beasts.">Палки, камни, лианы — и редкое железо с машины и шкуры зверей.</p></article>
+    <article class="fcard reveal glowable" style="--d:0s"><img src="assets/cards/hunter.webp" alt=""><h3 data-en="Co-op">Вместе</h3><p data-en="Up to 4 friends on one island. Everyone has a cap of their own colour.">До 4 друзей на одном острове. У каждого кепка своего цвета.</p></article>
+    <article class="fcard reveal glowable" style="--d:.06s"><img src="assets/items/raft.webp" alt=""><h3 data-en="Raft & ship">Плот и корабль</h3><p data-en="Build a raft between islands, buy a ship home — and dodge the rocks.">Плот — между островами, корабль — домой. И не врежься в скалы.</p></article>
+    <article class="fcard reveal glowable" style="--d:.12s"><img src="assets/items/cookedmeat.webp" alt=""><h3 data-en="Survival">Выживание</h3><p data-en="Hunger, cold and beasts. Morning, noon, night and midnight.">Голод, холод и звери. Утро, полдень, ночь и полночь.</p></article>
+    <article class="fcard reveal glowable" style="--d:.18s"><img src="assets/items/hide.webp" alt=""><h3 data-en="Old Yefim's shop">Лавка Деда Ефима</h3><p data-en="Sell meat and fish, buy weapons — or make them yourself.">Продай мясо и рыбу, купи оружие — или сделай его сам.</p></article>
+  </div>
+</section>
+
+<!-- ============ Боссы ============ -->
+<section class="bosses" id="bosses">
+  <div class="section-head reveal">
+    <span class="mono kicker"><span class="led"></span>03 — <span data-en="Bosses">Боссы</span></span>
+    <h2 class="h2" data-en="NO ONE LEAVES THE ISLAND">С ОСТРОВА ТАК ПРОСТО НЕ УПЛЫТЬ</h2>
+    <p class="lead" data-en="Every island has its master. While it lives, your raft won't leave the shore.">У каждого острова свой хозяин. Пока он жив, плот не отойдёт от берега.</p>
+  </div>
+  <div class="bgrid">
+    <article class="boss reveal glowable" style="--c:#d9734e;--d:0s">
+      <div class="boss-art"><img src="assets/cards/crab.webp" alt="" data-depth="0.25"></div>
+      <span class="mono tagline">01 · <span data-en="Rusty Shore">Ржавый Берег</span></span>
+      <h3 data-en="THE RUSTY CRAB">РЖАВЫЙ КРАБ</h3>
+      <p data-en="Walks sideways and smashes with its claws. Jump back in time — and the shell drops scrap.">Ходит боком и бьёт клешнями. Отскочи вовремя — а из панциря выпадет железо.</p>
+      <div class="hp mono"><i style="--w:49%"></i><span>320 HP</span></div>
+    </article>
+    <article class="boss reveal glowable" style="--c:#c9a23b;--d:.1s">
+      <div class="boss-art"><img src="assets/cards/boar.webp" alt="" data-depth="0.25" class="huge"></div>
+      <span class="mono tagline">02 · <span data-en="Boar's Fang">Кабаний Клык</span></span>
+      <h3 data-en="OLD TUSK">ВОЖАК КЛЫКАЧ</h3>
+      <p data-en="Twice the size of a boar. Paws the ground — and charges. After the ram it stops to breathe: shoot!">Вдвое больше кабана. Роет землю — и таранит. После тарана стоит и дышит: стреляй!</p>
+      <div class="hp mono"><i style="--w:77%"></i><span>500 HP</span></div>
+    </article>
+    <article class="boss reveal glowable" style="--c:#b0598f;--d:.2s">
+      <div class="boss-art"><img src="assets/cards/kraken.webp" alt="" data-depth="0.25"></div>
+      <span class="mono tagline">03 · <span data-en="Misty Horn">Туманный Рог</span></span>
+      <h3 data-en="THE KRAKEN">КРАКЕН</h3>
+      <p data-en="Surfaces with a roar. A white circle under you means a tentacle — run!">Всплывает с рёвом. Белый круг под ногами — это щупальце: беги!</p>
+      <div class="hp mono"><i style="--w:100%"></i><span>650 HP</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ Кадры ============ -->
+<section class="gallery">
+  <div class="gal">
+    <figure class="shot reveal" style="--d:0s"><img src="assets/shots/night.jpg" alt="" loading="lazy" data-depth="0.12"><figcaption class="mono" data-en="Night by the campfire">Ночь у костра</figcaption></figure>
+    <figure class="shot reveal" style="--d:.08s"><img src="assets/shots/crab.jpg" alt="" loading="lazy" data-depth="0.12"><figcaption class="mono" data-en="The Rusty Crab">Ржавый Краб</figcaption></figure>
+    <figure class="shot reveal" style="--d:.16s"><img src="assets/shots/home.jpg" alt="" loading="lazy" data-depth="0.12"><figcaption class="mono" data-en="Home at last">Наконец-то дома</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ Скачать ============ -->
+<section class="download" id="download">
+  <div class="dl reveal">
+    <div class="dl-glow" aria-hidden="true"></div>
+    <div class="dl-main">
+      <span class="mono kicker"><span class="led"></span>04 — <span data-en="Download">Скачать</span></span>
+      <h2 class="h2" data-en="READY TO GET HOME?">ГОТОВ ВЕРНУТЬСЯ ДОМОЙ?</h2>
+      <a class="btn glow xl" id="dlBtn" href="https://github.com/pythonaby-code/stranded-hunt/releases/latest/download/StrandedHunt-Windows.zip">
+        <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-en="Download for Windows">Скачать для Windows</span>
+      </a>
+      <p class="mono meta">StrandedHunt-Windows.zip · 49 MB · v1.0 · Windows 10/11 64-bit</p>
+      <ol class="steps">
+        <li><b>1</b><span data-en="Unzip the archive anywhere.">Распакуй архив в любую папку.</span></li>
+        <li><b>2</b><span data-en="Run StrandedHunt.exe. If Windows warns you — «More info» → «Run anyway».">Запусти StrandedHunt.exe. Если Windows предупредит — «Подробнее» → «Выполнить в любом случае».</span></li>
+        <li><b>3</b><span data-en="With friends: one presses «Host game», the others type their address and «Join».">С друзьями: один жмёт «Создать игру», остальные вводят его адрес и «Подключиться».</span></li>
+      </ol>
+    </div>
+    <div class="dl-side">
+      <h3 class="mono" data-en="Controls">Управление</h3>
+      <ul class="keys">
+        <li><span class="kc">W</span><span class="kc">A</span><span class="kc">S</span><span class="kc">D</span><em data-en="walk">идти</em></li>
+        <li><span class="kc wide">Shift</span><em data-en="run">бежать</em></li>
+        <li><span class="kc">E</span><em data-en="pick up, use">взять, действие</em></li>
+        <li><span class="kc wide" data-en="LMB">ЛКМ</span><em data-en="shoot, cast, eat">выстрел, заброс, есть</em></li>
+        <li><span class="kc">Tab</span><em data-en="craft">крафт</em></li>
+        <li><span class="kc">1–9</span><em data-en="hotbar">предметы</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot mono">
+  <svg viewBox="0 0 48 48"><use href="#mark"/></svg>
+  <span>Stranded Hunt · 2026</span>
+  <span data-en="Made with Unity & Blender">Сделано в Unity и Blender</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
