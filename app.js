@@ -57,7 +57,7 @@
       if (!el.dataset.ru) el.dataset.ru = el.textContent;
       el.textContent = EN ? el.dataset.en : el.dataset.ru;
     });
-    $('#langBtn').textContent = EN ? 'RU' : 'EN';
+    $$('#langBtn span').forEach(sp => sp.classList.toggle('on', (sp.dataset.l === 'en') === EN));
     renderCards();
     showIsland(cur, true);
   }

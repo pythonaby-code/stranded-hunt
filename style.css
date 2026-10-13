@@ -55,6 +55,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .pill:hover { border-color: rgba(155, 227, 107, .5); box-shadow: 0 0 22px rgba(155, 227, 107, .22); }
 .pill b { color: var(--accent); }
+/* Язык: горит текущий, второй — приглушён. */
+.lang { padding: 4px; gap: 2px; }
+.lang span { padding: 4px 9px; border-radius: 99px; color: var(--muted); transition: background .25s, color .25s; }
+.lang span.on { background: var(--accent); color: var(--accent-ink); }
 .avatar { width: 38px; height: 38px; border-radius: 12px; object-fit: cover; object-position: top; background: #e9a23b; padding: 3px 4px 0; }
 .dot, .led { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); flex: none; }
 .led { display: inline-block; animation: pulse 2s ease-in-out infinite; }
